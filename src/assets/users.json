@@ -1,0 +1,21 @@
+[
+    {
+      "filenumber": 239663,
+      "firstName": "Manu",
+      "middleName": "Ramachandran",
+      "country": "India",
+      "city": "Bangalore",
+      "dateOfBirth": "1995-10-10",
+      "gender": "Male"
+    },
+    {
+      "filenumber": 239664,
+      "firstName": "Anita",
+      "middleName": "Kumar",
+      "country": "India",
+      "city": "Delhi",
+      "dateOfBirth": "1990-05-20",
+      "gender": "Female"
+    }
+  ]
+  
