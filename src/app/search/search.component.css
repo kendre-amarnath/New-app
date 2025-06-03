@@ -1,0 +1,33 @@
+.search-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  .input-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  
+  .result-card {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }

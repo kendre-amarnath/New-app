@@ -1,0 +1,26 @@
+<div class="search-container">
+  <label for="filenumberInput" class="input-label">Enter File Number:</label>
+  <mat-form-field class="full-width" appearance="outline">
+    <input
+      id="filenumberInput"
+      type="text"
+      matInput
+      placeholder="Enter file number"
+      [formControl]="searchControl"
+    />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="search()">Search</button>
+
+  <div *ngIf="message" class="error-message">
+    {{ message }}
+  </div>
+
+  <div *ngIf="selectedRecord" class="result-card">
+    <p><strong>First Name:</strong> {{ selectedRecord.firstName }}</p>
+    <p><strong>Middle Name:</strong> {{ selectedRecord.middleName }}</p>
+    <p><strong>Country:</strong> {{ selectedRecord.country }}</p>
+    <p><strong>City:</strong> {{ selectedRecord.city }}</p>
+    <p><strong>DOB:</strong> {{ selectedRecord.DateOfBirth }}</p>
+    <p><strong>Gender:</strong> {{ selectedRecord.Gender }}</p>
+  </div>
+</div>
