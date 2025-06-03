@@ -1,6 +1,6 @@
 <h2>Details for File #{{ filenumber }}</h2>
  
-<!-- READ-ONLY DISPLAY -->
+
 <div *ngIf="!isEditing">
   <p><strong>First Name:</strong> {{ selectedUser.firstName }}</p>
   <p><strong>Middle Name:</strong> {{ selectedUser.middleName }}</p>
@@ -12,7 +12,7 @@
   <button (click)="enableEditing()">Edit</button>
 </div>
  
-<!-- EDITABLE FORM -->
+
 <form *ngIf="isEditing" [formGroup]="form" (ngSubmit)="onSubmit()">
   <label>First Name:</label>
   <input formControlName="firstName" /><br />
