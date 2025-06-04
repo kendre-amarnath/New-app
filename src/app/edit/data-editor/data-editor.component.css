@@ -1,0 +1,59 @@
+:host {
+    display: block;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff; /* changed from #1e1e1e */
+    color: #222222; /* changed from #f0f0f0 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #000000; /* changed from white */
+  }
+  
+  p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #333333; /* darker text */
+  }
+  
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #333333; /* changed from #cccccc */
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc; /* lighter border */
+    border-radius: 4px;
+    background-color: #f9f9f9; /* light background */
+    color: #222222;
+    box-sizing: border-box;
+  }
+  
+  button {
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #005fa3;
+  }
+  
+  form {
+    margin-top: 1rem;
+  }

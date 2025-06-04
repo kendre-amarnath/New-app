@@ -1,0 +1,36 @@
+<h2>Details for File #{{ selectedUser.filenumber }}</h2>
+ 
+
+<div *ngIf="!isEditing">
+  <p><strong>First Name:</strong> {{ selectedUser.firstName }}</p>
+  <p><strong>Middle Name:</strong> {{ selectedUser.middleName }}</p>
+  <p><strong>Country:</strong> {{ selectedUser.country }}</p>
+  <p><strong>City:</strong> {{ selectedUser.city }}</p>
+  <p><strong>Date of Birth:</strong> {{ selectedUser.dateOfBirth }}</p>
+  <p><strong>Gender:</strong> {{ selectedUser.gender }}</p>
+ 
+  <button (click)="enableEditing()">Edit</button>
+</div>
+ 
+
+<form *ngIf="isEditing" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>First Name:</label>
+  <input formControlName="firstName" /><br />
+ 
+  <label>Middle Name:</label>
+  <input formControlName="middleName" /><br />
+ 
+  <label>Country:</label>
+  <input formControlName="country" /><br />
+ 
+  <label>City:</label>
+  <input formControlName="city" /><br />
+ 
+  <label>Date of Birth:</label>
+  <input formControlName="dateOfBirth" type="date" /><br />
+ 
+  <label>Gender:</label>
+  <input formControlName="gender" /><br />
+ 
+  <button type="submit">Submit</button>
+</form>

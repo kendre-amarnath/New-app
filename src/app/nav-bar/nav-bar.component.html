@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="custom-toolbar">
+  <span class="toolbar-title">User Management</span>
+
+  <div class="spacer"></div>
+
+  <div class="custom-search-wrapper">
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search" suggestion="true"
+      class="custom-search-input"
+      (keyup.enter)="onSearch()"
+    />
+    <img
+      src="assets/icons8-search-100.png"
+      alt="Search"
+      class="search-icon"
+      (click)="onSearch()"
+    />
+  </div>
+  
+  
+    
+
+  <a mat-button>Home</a>
+  <a mat-button>About</a>
+  <a mat-button>Contact</a>
+</mat-toolbar>
