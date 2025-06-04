@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent implements OnInit{
+  isSubmitted = false; 
   filenumber!: number;
   form!: FormGroup;
   isEditing = false;
@@ -54,8 +55,16 @@ export class DetailsComponent implements OnInit{
       ...this.form.value
     };
     console.log('Updated data:', updatedData);
-    alert('Updated successfully!');
+  
     this.selectedUser = updatedData;
     this.isEditing = false;
+    this.isSubmitted = true; 
+  }  
+
+  goBack() {
+    history.back(); // Navigates to the previous page
   }
+  
 }
+
+
