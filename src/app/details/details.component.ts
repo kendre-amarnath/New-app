@@ -16,6 +16,7 @@ export class DetailsComponent implements OnInit{
   form!: FormGroup;
   isEditing = false;
   selectedUser: any;
+  showSuccessPopup = false;
 
   mockData = [
     {
@@ -48,21 +49,24 @@ export class DetailsComponent implements OnInit{
   enableEditing() {
     this.isEditing = true;
   }
-
+  
   onSubmit() {
     const updatedData = {
       filenumber: this.filenumber,
       ...this.form.value
     };
-    console.log('Updated data:', updatedData);
   
     this.selectedUser = updatedData;
     this.isEditing = false;
-    this.isSubmitted = true; 
-  }  
-
+    this.showSuccessPopup = true; 
+  }
+  closeSuccessPopup() {
+    this.showSuccessPopup = false;
+  }
+  
+  
   goBack() {
-    history.back(); // Navigates to the previous page
+    history.back(); 
   }
   
 }
