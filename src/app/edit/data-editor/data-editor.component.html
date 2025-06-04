@@ -1,36 +1,66 @@
-<h2>Details for File #{{ selectedUser.filenumber }}</h2>
- 
+<!-- ✅ Success Popup -->
+<div *ngIf="showSuccessPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h3>✅ Edit Successful</h3>
+    <p><strong>File Number:</strong> {{ selectedUser?.filenumber }}</p>
+    <p><strong>First Name:</strong> {{ selectedUser?.firstName }}</p>
+    <p><strong>Middle Name:</strong> {{ selectedUser?.middleName }}</p>
+    <p><strong>Country:</strong> {{ selectedUser?.country }}</p>
+    <p><strong>City:</strong> {{ selectedUser?.city }}</p>
+    <p><strong>Date of Birth:</strong> {{ selectedUser?.dateOfBirth }}</p>
+    <p><strong>Gender:</strong> {{ selectedUser?.gender }}</p>
 
-<div *ngIf="!isEditing">
-  <p><strong>First Name:</strong> {{ selectedUser.firstName }}</p>
-  <p><strong>Middle Name:</strong> {{ selectedUser.middleName }}</p>
-  <p><strong>Country:</strong> {{ selectedUser.country }}</p>
-  <p><strong>City:</strong> {{ selectedUser.city }}</p>
-  <p><strong>Date of Birth:</strong> {{ selectedUser.dateOfBirth }}</p>
-  <p><strong>Gender:</strong> {{ selectedUser.gender }}</p>
- 
-  <button (click)="enableEditing()">Edit</button>
+    <div class="popup-buttons">
+      <button class="popup-btn" (click)="goBack()">Back</button>
+      <button class="popup-btn" (click)="closeSuccessPopup()">Close</button>
+    </div>
+  </div>
 </div>
- 
+
+<div *ngIf="!isEditing && !isSubmitted">
+  <h2>Details for File #{{ selectedUser?.filenumber }}</h2>
+  <p><strong>First Name:</strong> {{ selectedUser?.firstName }}</p>
+  <p><strong>Middle Name:</strong> {{ selectedUser?.middleName }}</p>
+  <p><strong>Country:</strong> {{ selectedUser?.country }}</p>
+  <p><strong>City:</strong> {{ selectedUser?.city }}</p>
+  <p><strong>Date of Birth:</strong> {{ selectedUser?.Date_of_birth}}</p>
+  <p><strong>Gender:</strong> {{ selectedUser?.Gender }}</p>
+
+  <div class="button-row">
+    <button (click)="enableEditing()">Edit</button>
+    <button type="button" (click)="goBack()">Go Back</button>
+  </div>
+</div>
+
 
 <form *ngIf="isEditing" [formGroup]="form" (ngSubmit)="onSubmit()">
   <label>First Name:</label>
   <input formControlName="firstName" /><br />
- 
+
   <label>Middle Name:</label>
   <input formControlName="middleName" /><br />
- 
+
   <label>Country:</label>
   <input formControlName="country" /><br />
- 
+
   <label>City:</label>
   <input formControlName="city" /><br />
- 
+
   <label>Date of Birth:</label>
   <input formControlName="dateOfBirth" type="date" /><br />
- 
+
   <label>Gender:</label>
-  <input formControlName="gender" /><br />
+  <select formControlName="gender">
+    <option value="">Select Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select><br />
+
  
-  <button type="submit">Submit</button>
+  <div class="form-buttons">
+    <button type="submit">Submit</button>
+    <button type="button" (click)="goBack()">Go Back</button>
+
+  </div>
 </form>

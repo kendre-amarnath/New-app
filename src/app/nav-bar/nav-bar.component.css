@@ -58,3 +58,9 @@
     align-items: center;
     justify-content: center;
   }
+  .home-icon {
+    width: 24px;   /* smaller size */
+    height: 24px;  /* maintain aspect ratio */
+    filter: brightness(0) invert(1); /* makes the icon white if it's dark */
+    margin-right: 8px; /* space if text follows */
+  }

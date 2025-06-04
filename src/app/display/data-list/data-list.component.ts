@@ -32,6 +32,7 @@ export class DataListComponent implements OnInit {
   selectedRowData: any = null;
   showEditPopup = false;
   showConfirmEditPopup = false;
+  isEditing = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -76,6 +77,10 @@ export class DataListComponent implements OnInit {
 
   onGridReady(params: any): void {
     this.gridapi = params.api;
+    this.gridapi.sizeColumnsToFit();
+   window.addEventListener('resize', () => {
+    this.gridapi.sizeColumnsToFit();
+  });
   }
 
   onRowClicked(event: any): void {

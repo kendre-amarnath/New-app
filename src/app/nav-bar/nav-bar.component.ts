@@ -14,6 +14,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
+display() {
+  this.router.navigate(['']);
+}
   searchText = '';
 
   constructor(private dataservice: DataService,private router:Router) {}
