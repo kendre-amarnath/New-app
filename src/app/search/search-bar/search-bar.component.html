@@ -1,0 +1,15 @@
+<div class="custom-search-wrapper">
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search file,name and etc" suggestion="true"
+      class="custom-search-input"
+      (keyup.enter)="onSearch()" autocomplete="on"
+    />
+    <img
+      src="assets/icons8-search-100.png"
+      alt="Search"
+      class="search-icon"
+      (click)="onSearch()"
+     autocomplete="on"/>
+  </div>

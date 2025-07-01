@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DataService } from 'C:/Users/285495/Desktop/Task/New-app/src/app/core/services/dataservice';
@@ -18,7 +18,8 @@ import { DataTransferService } from 'C:/Users/285495/Desktop/Task/New-app/src/ap
   styleUrl: './search-bar.component.css'
 })
 export class SearchBarComponent {
-  searchText: string | null=null;
+  @Input() tabKey: string = '';
+  searchText: string = '';
   searchSubscription!: Subscription;
 
   rowData:any[] = []; 
@@ -29,6 +30,7 @@ export class SearchBarComponent {
     private route: ActivatedRoute,
     private http: HttpClient,private dataservice:DataService,private datatransfer:DataTransferService,private router:Router
   ) {}
+  
   // @Output() search = new EventEmitter<string>();
   //@Output() searchChanged:EventEmitter<any[]> = new EventEmitter<any[]>(); // Emits filtered results@Input()
 
@@ -41,20 +43,35 @@ export class SearchBarComponent {
 
   overlayNoRowsTemplate: string|undefined;
   ngOnInit(): void {
-    // Load data first
-    this.http.get<any[]>('assets/sample_data.json').subscribe(data => {
-    this.allUsers = data;
-    this.rowData=data;
-    
-    // Subscribe to query params once data is ready
-    this.route.queryParams.subscribe(params => {
-      const query = (params['q'] || '').trim().toLowerCase();
-      this.search(query);
-      console.log("now in search bar component")
+    this.dataservice.getUserData().subscribe(data => {
+      this.allUsers = data;
+      this.rowData = [...data];
+  
+      if (!data || data.length === 0) {
+        console.warn('No data returned from DataService.');
+        return;
+      }
+  
+      this.route.queryParams.subscribe(params => {
+        const query = (params['q'] || '').trim().toLowerCase();
+        if (query) {
+          this.searchText = query;
+          this.search(query);
+        } else {
+          const transferred = this.datatransfer.getData();
+          this.rowData = transferred?.length ? [...transferred] : [...this.allUsers];
+          if (!transferred || transferred.length === 0) {
+            this.datatransfer.setData(this.rowData);
+          }
+        }
       });
     });
   }
 
+  onSearch(): void {
+    const trimmed = this.searchText.trim().toLowerCase();
+    this.dataservice.setSearchQueryForTab(this.tabKey, trimmed);
+  }
   
   search(query: string): void {
     const trimmedQuery = (query || '').trim().toLowerCase();
@@ -67,12 +84,13 @@ export class SearchBarComponent {
       return;
     }
   
-    // No search input — show all users
     if (!trimmedQuery) {
       this.rowData = [...this.allUsers];
       this.searchResults = [...this.allUsers];
       this.overlayNoRowsTemplate = '';
-      this.router.navigate(['/display']);
+
+      this.router.navigate(['/dashboard']);
+
       return;
     }
   
@@ -80,7 +98,7 @@ export class SearchBarComponent {
   
     this.searchResults = this.allUsers.filter(user => {
       if (isNumeric) {
-        return user.filenumber === Number(trimmedQuery);
+        return user.filenumber === trimmedQuery;
       } else {
         return user.firstName?.toLowerCase().includes(trimmedQuery);
       }
@@ -93,13 +111,13 @@ export class SearchBarComponent {
       this.overlayNoRowsTemplate = `
         <span style="padding: 10px; border: 1px solid #ccc;">No results found</span>
       `;
-      console.warn('No results found.');
     } else {
       this.overlayNoRowsTemplate = '';
     }
     this.datatransfer.setData(this.searchResults);
-    this.router.navigate(['/display']);
-    
+    console.log("the data is saved",this.datatransfer.getData());
+    this.router.navigate(['/dashboard']);
+
   }
   goToDisplayPage() {
  

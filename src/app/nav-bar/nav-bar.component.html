@@ -1,28 +1,34 @@
 <mat-toolbar color="primary" class="custom-toolbar">
-  <span class="toolbar-title"><img src="assets/icons8-home-button-50.png" alt="home" class="home-icon"></span>
+
+
+  <span class="toolbar-title">
+    <img src="assets/icons8-home-button-50.png" alt="home" class="home-icon" (click)="display()">
+  </span>
+
+
+  <span>Data Manager</span>
 
   <div class="spacer"></div>
 
-  <div class="custom-search-wrapper">
-    <input
-      type="text"
-      [(ngModel)]="searchText"
-      placeholder="Search" suggestion="true"
-      class="custom-search-input"
-      (keyup.enter)="onSearch()"
-    />
-    <img
-      src="assets/icons8-search-100.png"
-      alt="Search"
-      class="search-icon"
-      (click)="onSearch()"
-    />
-  </div>
-  
-  
-    
-
   <a mat-button (click)="display()">Home</a>
-  <a mat-button>About</a>
   <a mat-button>Contact</a>
+
+  <div class="user-bar" (click)="toggleUserDrawer()">
+    <mat-icon>account_circle</mat-icon>
+    <span style="margin-left: 6px;">Kendre</span>
+  </div>
 </mat-toolbar>
+
+<div class="top-drawer top-right" [class.open]="showUserDrawer">
+  <div class="drawer-content">
+    <h3>User Profile</h3>
+    <p>Name: Kendre</p>
+    <p>Email: kendreexample.com</p>
+
+    <button  mat-button class="popup-btn" (click)="toggleUserDrawer()">Close</button>
+
+    <button mat-raised-button class="popup-btn" color="warn" (click)="logout()">Logout</button>
+
+    
+  </div>
+</div>

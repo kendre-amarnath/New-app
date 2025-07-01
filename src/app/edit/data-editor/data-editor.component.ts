@@ -26,13 +26,6 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrl: './data-editor.component.css'
 })
 export class DataEditorComponent implements OnInit {
-  // showSuccessPopup = false;
-
-  // filenumber!: number;
-  // form!: FormGroup;
-  // isEditing = false;
-  // selectedUser: any;
-  // isSubmitted = false; 
 
   constructor(
     private route: ActivatedRoute,
@@ -110,6 +103,8 @@ export class DataEditorComponent implements OnInit {
   isEditing = false;
   selectedUser: any;
   showSuccessPopup = false;
+  showAddress2: boolean = false;
+showPhone2: boolean = false;
 
   // mockData = [
   //   {
@@ -128,8 +123,9 @@ export class DataEditorComponent implements OnInit {
   ngOnInit(): void {
     this.filenumber = +this.route.snapshot.paramMap.get('filenumber')!;
     //this.selectedUser = this.selectedUser.find(u=> u.filenumber === this.filenumber);
- 
+    
     this.selectedUser = this.datatransfer.getData();
+    console.log("selected user",this.selectedUser);
     if (!this.selectedUser) {
       console.warn('No user data received. Redirecting back.');
       this.router.navigate(['/']);
@@ -137,34 +133,56 @@ export class DataEditorComponent implements OnInit {
     }
 
     this.form = this.fb.group({
+  
       firstName: [this.selectedUser?.firstName],
-      middleName: [this.selectedUser?.middleName],
-      country: [this.selectedUser?.country],
-      city: [this.selectedUser?.city],
-      dateOfBirth: [this.selectedUser?.Date_of_birth],
-      gender: [this.selectedUser?.Gender]
+      lastName: [this.selectedUser?.lastName],
+      gender: [this.selectedUser?.gender],
+      dateOfBirth: [this.selectedUser?.dateOfBirth],
+      address1: [this.selectedUser?.address1],
+      address2: [this.selectedUser?.address2],
+      phone1: [this.selectedUser?.phoneNumber1],
+      phone2: [this.selectedUser?.phoneNumber2]
 
     });
     console.log(this.form);
   }
-  // formatDateToInput(date: string | Date): string {
-  //   const d = new Date(date);
-  //   return d.toISOString().split('T')[0]; // "yyyy-MM-dd"
-  // }
+
   enableEditing() {
     this.isEditing = true;
   }
-  
+  loading=false;
   onSubmit() {
+    const fileNumber = this.selectedUser?.fileNumber;
+  
+    if (!fileNumber) {
+      console.error("File number is missing!");
+      return;
+    }
+  
     const updatedData = {
-      filenumber: this.filenumber,
+      filenumber: fileNumber,
       ...this.form.value
     };
   
-    this.selectedUser = updatedData;
-    this.isEditing = false;
-    this.showSuccessPopup = true; 
+   //this.loading = true;
+    this.dataservice.updateUserByFileNumber(fileNumber, updatedData).subscribe({
+      next: () => {
+        console.log(updatedData);
+        this.selectedUser = updatedData;
+        this.isEditing = false;
+        this.showSuccessPopup = true;
+      },
+      error: (err) => {
+        console.error('Update failed:', err);
+        alert('Failed to update user.');
+      },
+      complete: () => {
+       //this.loading = false;
+      }
+    });
   }
+  
+  
   closeSuccessPopup() {
     this.showSuccessPopup = false;
   }

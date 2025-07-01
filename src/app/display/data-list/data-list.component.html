@@ -5,16 +5,21 @@
     class="ag-theme-alpine"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
-  
     [defaultColDef]="{ sortable: true, filter: true }"
     [pagination]="true"
+    [rowModelType]="'clientSide'"
     [paginationPageSize]="10"
     [paginationPageSizeSelector]="[10, 20]"
     [domLayout]="'autoHeight'"
     (paginationChanged)="onPaginationChanged($event)"
-    (rowClicked)="onRowClicked($event)"
+    (rowDoubleClicked)="onRowDoubleClicked($event)"
+    [context]="{ componentParent: this }"
+
+    [enableBrowserTooltips]="true"
     (gridReady)="onGridReady($event)"
-    ></ag-grid-angular>
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate">
+
+    </ag-grid-angular>
 
 </div>
 </div>
@@ -28,6 +33,21 @@
         <button class="popup-btn"  (click)="openEditForm()">Edit</button>
         
             <button class="popup-btn" (click)="closeConfirmEditPopup()">Cancel</button>
+        </div>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="loader-overlay">
+        <div class="spinner"></div>
+      </div>
+
+    <div *ngIf="deletePopup" class="popup-overlay">
+        <div class="popup-content">
+        <p>Do you want to delete this record?</p>
+        <div class="popup-buttons">
+        <button class="popup-btn"  (click)="deleteRecord()">Yes</button>
+        
+            <button class="popup-btn" (click)="closeConfirmDeletePopup()">Cancel</button>
         </div>
         </div>
     </div>

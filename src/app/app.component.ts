@@ -8,12 +8,13 @@ import { DataListComponent } from "./display/data-list/data-list.component";
 import { DataEditorComponent } from "./edit/data-editor/data-editor.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { filter } from 'rxjs';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MatInputModule, SearchBarComponent, DataListComponent, DataEditorComponent, RouterOutlet, RouterModule, NavBarComponent],
+  imports: [MatInputModule, SearchBarComponent, DataListComponent, DataEditorComponent, RouterOutlet, RouterModule, NavBarComponent,DashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

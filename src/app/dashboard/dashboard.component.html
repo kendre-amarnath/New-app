@@ -1,0 +1,20 @@
+<mat-tab-group [(selectedIndex)]="selectedTabIndex" style="background: #f9f9f9;">
+  <mat-tab label="View">
+    <div class="tab-content-wrapper">
+      <app-search-bar tabKey="view"></app-search-bar>
+      <app-data-list tabId="view"></app-data-list>
+    </div>
+  </mat-tab>
+  <mat-tab label="Search">
+    <div class="tab-content-wrapper">
+      <app-search-bar tabKey="search"></app-search-bar>
+      <app-data-list tabId="search"></app-data-list>
+    </div>
+  </mat-tab>
+  <mat-tab label="Modify">
+    <div class="tab-content-wrapper">
+      <app-search-bar tabKey="modify"></app-search-bar>
+      <app-data-list tabId="modify"></app-data-list>
+    </div>
+  </mat-tab>
+</mat-tab-group>

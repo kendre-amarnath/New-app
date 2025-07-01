@@ -2,11 +2,13 @@
 <div *ngIf="showSuccessPopup" class="popup-overlay">
   <div class="popup-content">
     <h3>✅ Edit Successful</h3>
-    <p><strong>File Number:</strong> {{ selectedUser?.filenumber }}</p>
+    <p><strong>File Number:</strong> {{ selectedUser.filenumber }}</p>
     <p><strong>First Name:</strong> {{ selectedUser?.firstName }}</p>
     <p><strong>Middle Name:</strong> {{ selectedUser?.middleName }}</p>
-    <p><strong>Country:</strong> {{ selectedUser?.country }}</p>
-    <p><strong>City:</strong> {{ selectedUser?.city }}</p>
+    <p><strong>Address 1:</strong> {{ selectedUser?.address1 }}</p>
+    <p *ngIf="selectedUser?.address2"><strong>Address 2:</strong> {{ selectedUser?.address2 }}</p>
+    <p><strong>Phone 1:</strong> {{ selectedUser?.phone1 }}</p>
+    <p *ngIf="selectedUser?.phone2"><strong>Phone 2:</strong> {{ selectedUser?.phone2 }}</p>
     <p><strong>Date of Birth:</strong> {{ selectedUser?.dateOfBirth }}</p>
     <p><strong>Gender:</strong> {{ selectedUser?.gender }}</p>
 
@@ -17,14 +19,17 @@
   </div>
 </div>
 
+<!-- View Mode -->
 <div *ngIf="!isEditing && !isSubmitted">
-  <h2>Details for File #{{ selectedUser?.filenumber }}</h2>
+  <h2>Details for File # {{ selectedUser?.fileNumber }}</h2>
   <p><strong>First Name:</strong> {{ selectedUser?.firstName }}</p>
-  <p><strong>Middle Name:</strong> {{ selectedUser?.middleName }}</p>
-  <p><strong>Country:</strong> {{ selectedUser?.country }}</p>
-  <p><strong>City:</strong> {{ selectedUser?.city }}</p>
-  <p><strong>Date of Birth:</strong> {{ selectedUser?.Date_of_birth}}</p>
-  <p><strong>Gender:</strong> {{ selectedUser?.Gender }}</p>
+  <p><strong>Last Name:</strong> {{ selectedUser?.lastName }}</p>
+  <p><strong>Date of Birth:</strong> {{ selectedUser?.dateOfBirth }}</p>
+  <p><strong>Gender:</strong> {{ selectedUser?.gender }}</p>
+  <p><strong>Address 1:</strong> {{ selectedUser?.address1 }}</p>
+  <p *ngIf="selectedUser?.address2"><strong>Address 2:</strong> {{ selectedUser?.address2 }}</p>
+  <p><strong>Phone 1:</strong> {{ selectedUser?.phoneNumber1}}</p>
+  <p *ngIf="selectedUser?.phoneNumber2"><strong>Phone 2:</strong> {{ selectedUser?.phoneNumber2 }}</p>
 
   <div class="button-row">
     <button (click)="enableEditing()">Edit</button>
@@ -32,22 +37,13 @@
   </div>
 </div>
 
-
+<!-- Edit Mode -->
 <form *ngIf="isEditing" [formGroup]="form" (ngSubmit)="onSubmit()">
   <label>First Name:</label>
   <input formControlName="firstName" /><br />
 
-  <label>Middle Name:</label>
-  <input formControlName="middleName" /><br />
-
-  <label>Country:</label>
-  <input formControlName="country" /><br />
-
-  <label>City:</label>
-  <input formControlName="city" /><br />
-
-  <label>Date of Birth:</label>
-  <input formControlName="dateOfBirth" type="date" /><br />
+  <label>Last Name:</label>
+  <input formControlName="lastName" /><br />
 
   <label>Gender:</label>
   <select formControlName="gender">
@@ -57,10 +53,29 @@
     <option value="Other">Other</option>
   </select><br />
 
- 
-  <div class="form-buttons">
-    <button type="submit">Submit</button>
-    <button type="button" (click)="goBack()">Go Back</button>
+  <label>Date of Birth:</label>
+  <input formControlName="dateOfBirth" type="date" /><br />
 
+  <label>Address 1:</label>
+  <input formControlName="address1" /><br />
+  <button type="button" *ngIf="!showAddress2" (click)="showAddress2 = true">+ Add Address 2</button>
+
+  <div *ngIf="showAddress2 ">
+    <label>Address 2:</label>
+    <input formControlName="address2" /><br />
+  </div>
+
+  <label>Phone 1:</label>
+  <input formControlName="phone1" /><br />
+  <button type="button" *ngIf="!showPhone2" (click)="showPhone2 = true">+ Add Phone 2</button>
+
+  <div *ngIf="showPhone2">
+    <label>Phone 2:</label>
+    <input formControlName="phone2" /><br />
+  </div>
+
+  <div class="form-buttons">
+    <button type="submit" (click)="onSubmit()">Submit</button>
+    <button type="button" (click)="goBack()">Go Back</button>
   </div>
 </form>
